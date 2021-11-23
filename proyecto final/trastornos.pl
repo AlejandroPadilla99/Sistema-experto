@@ -1,71 +1,48 @@
+enfermedad(fobia) :-
+    is_true("¿Tiene deterioro social?"),
+    is_true("¿Presenta llantos?"),
+    is_true("¿Presenta rabietas?"),
+    is_true("¿Presenta paralisis?"),
+    is_true("Presenta sucesos traumaticos?"),
+    is_true("Suele evitar situaciones?").
 
-enfermedad(fobia,[
-    "deterioro social",
-    "llantos",
-    "rabietas",
-    "paralisis",
-    "persistencia de sintomas",
-    "sucesos traumaticos",
-    "evitar situaciones",
-])
+enfermedad(ansiedad) :-
+    is_true("¿Tiene ansiedad?"),
+    is_true("¿Se encuentra preocupado?"),
+    is_true("¿Se haya inquieto?"),
+    is_true("¿Se fatiga con facilidad?"),
+    is_true("¿No puede concentrarse facilmente?"),
+    is_true("¿Esta irritable?"),
+    is_true("¿Padece tension muscular?"),
+    is_true("¿Tiene dificultades para dormir?"),
+    is_true("¿Tiene dificultades para controlar su preocupacion?").
 
-enfermedad(ansiedadG,[
-    "ansiedad",
-    "preocupacion", % Le quité el acento
-    "inquietud",
-    "facilidad para fatigarse",
-    "falta de concentracion", % Dificultad para fatigarse
-    "irritable",
-    "tension muscular", % Le quité el acento
-    "dificultad para dormir", % Dificultad para dormirse o para continuar durmiendo, o sueño inquieto e insatisfactorio
-    "dificultad para controlar la preocupacion"
-])
+enfermedad(depresionP) :-
+    is_true("¿Tiene depresion?"),
+    is_true("Si es ninio o adolescente ¿Esta irritable?"),
+    is_true("¿Tiene poco apetito?"),
+    is_true("¿Se sobrealimenta?"),
+    is_true("¿Tiene fatiga?"),
+    is_true("¿Tiene baja autoestima?"),
+    is_true("¿Tiene problemas para concentrarse?"),
+    is_true("¿Estos síntomas son persistentes?").
 
-enfermedad(depresionP,[
-    "depresion",
-    "irritable",
-    "poco apetito",
-    "sobrealimentacion",
-    "fatiga",
-    "Baja autoestima",
-    "falta de concentracion",
-    "falta de concentracion",
-    "persistencia",
-])
+enfermedad(depresionM) :-
+    is_true("¿Tiene depresion?"),
+    is_true("¿Presenta perdida o aumento de peso repentino?"),
+    is_true("¿Presenta perdida de apetito o aumento de apetito repentino?"),
+    is_true("¿Presenta fatiga?"),
+    is_true("¿Presenta falta de concentracion?"),
+    is_true("¿Presenta malestar significativo?").
 
-enfermedad(depresionM,[
-    "depresion",
-    "perdida de peso",
-    "perdida de apetito",
-    "aumento de peso",
-    "aumento de apetito",
-    "fatiga",
-    "falta de concentracion",
-    "malestar significativo",
-])
+enfermedad(agorafobia):-
+    is_true("¿Tiene miedo a usar el transporte publico?"),
+    is_true("¿Tiene miedo a espacios abiertos"),
+    is_true("¿Ha tenido ataques de panico?"),
+    is_true("¿Le preocupa tener ataques otra vez?"),
+    is_true("¿Necesita estar acompañado de alguien en publico?"),
+    is_true("¿Evita estar en lugares publicos?").
 
-syntoma("depresion")
-syntoma("deterioro social")
-syntoma("llantos")
-syntoma("rabietas")
-syntoma("paralisis")
-syntoma("persistencia de sintomas")
-syntoma("sucesos traumaticos")
-syntoma("evitar situaciones")
-syntoma("ansiedad")
-syntoma("preocupacion")
-syntoma("inquietud")
-syntoma("facilidad para fatigarse")
-syntoma("falta de concentracion")
-syntoma()
-syntoma()
-syntoma()
-syntoma()
-syntoma()
-syntoma()
-syntoma()
-syntoma()
-syntoma()
-syntoma()
-syntoma()
-syntoma()
+is_true(Q) :-
+    format("~w\n", [Q]),
+    read(si).
