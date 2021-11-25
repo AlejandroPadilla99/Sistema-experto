@@ -1,8 +1,4 @@
 0- TODO
-1- función que muestre todos los síntomas
-2- una función que agregue síntomas a una lista
-3- una funcion que permita agregar enfermedades
-4- una funcion que permita agregar sintomas a una enfermedad 
-5- funcion que recorra todos los sintomas de una enfermedad
-6- funcion de comparacion de sintomas con las enfermedades
-7- Interfaz
+1 - Crear un menu
+2 - Función que agregue nuevas enfermedades (módulo de aprendizaje)
+3 - Función que devuelva la enfermedad o un mensaje cuando no encuentre la enfermedad

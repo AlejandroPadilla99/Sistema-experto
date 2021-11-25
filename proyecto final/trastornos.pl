@@ -1,6 +1,7 @@
-is_true(Q) :-
-    format("~w\n", [Q]),
-    read(si).
+:- dynamic enfermedades/1
+
+
+%db
 enfermedades([
     enfermedad(fobia, [
         is_true("¿Tiene deterioro social?"),
@@ -8,7 +9,7 @@ enfermedades([
         is_true("¿Presenta rabietas?"),
         is_true("¿Presenta paralisis?"),
         is_true("Presenta sucesos traumaticos?"),
-        is_true("Suele evitar situaciones?").
+        is_true("Suele evitar situaciones?")
     ]),
     enfermedad(ansiedad, [
         is_true("¿Tiene ansiedad?"),
@@ -19,7 +20,7 @@ enfermedades([
         is_true("¿Esta irritable?"),
         is_true("¿Padece tension muscular?"),
         is_true("¿Tiene dificultades para dormir?"),
-        is_true("¿Tiene dificultades para controlar su preocupacion?").
+        is_true("¿Tiene dificultades para controlar su preocupacion?")
     ]),
     enfermedad(depresionP, [
         is_true("¿Tiene depresion?"),
@@ -29,7 +30,7 @@ enfermedades([
         is_true("¿Tiene fatiga?"),
         is_true("¿Tiene baja autoestima?"),
         is_true("¿Tiene problemas para concentrarse?"),
-        is_true("¿Estos síntomas son persistentes?").
+        is_true("¿Estos síntomas son persistentes?")
     ]),
     enfermedad(depresionM, [
         is_true("¿Tiene depresion?"),
@@ -37,7 +38,7 @@ enfermedades([
         is_true("¿Presenta perdida de apetito o aumento de apetito repentino?"),
         is_true("¿Presenta fatiga?"),
         is_true("¿Presenta falta de concentracion?"),
-        is_true("¿Presenta malestar significativo?").
+        is_true("¿Presenta malestar significativo?")
     ]),
     enfermedad(agorafobia, [
         is_true("¿Tiene miedo a usar el transporte publico?"),
@@ -45,6 +46,6 @@ enfermedades([
         is_true("¿Ha tenido ataques de panico?"),
         is_true("¿Le preocupa tener ataques otra vez?"),
         is_true("¿Necesita estar acompañado de alguien en publico?"),
-        is_true("¿Evita estar en lugares publicos?").
+        is_true("¿Evita estar en lugares publicos?")
     ])
-])
+]).
