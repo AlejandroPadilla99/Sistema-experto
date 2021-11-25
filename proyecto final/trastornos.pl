@@ -1,7 +1,3 @@
-:- dynamic enfermedades/1
-
-
-%db
 enfermedades([
     enfermedad(fobia, [
         is_true("¿Tiene deterioro social?"),

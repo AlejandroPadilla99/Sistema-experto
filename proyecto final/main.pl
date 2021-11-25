@@ -1,9 +1,8 @@
 inicio :-
+    consult("trastornos"),
+    consult("reif"),
     enfermedad(X), write("Su enfermedad es "), write(X);
-    not(enfermedad(_)), write("Usted no cuenta con ninguna enfermedad").
-    
-save:-
-    
+    not(enfermedad(_)), write("Usted no cuenta con ninguna enfermedad"). 
 
 enfermedad(A) :-
     enfermedades(Enfermedades),
