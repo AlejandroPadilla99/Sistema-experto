@@ -26,6 +26,13 @@ enfermedad(depresionP) :-
     is_true("¿Tiene baja autoestima?"),
     is_true("¿Tiene problemas para concentrarse?"),
     is_true("¿Estos síntomas son persistentes?").
+enfermedad(depresionM) :-
+    is_true("¿Tiene depresion?"),
+    is_true("¿Presenta perdida o aumento de peso repentino?"),
+    is_true("¿Presenta perdida de apetito o aumento de apetito repentino?"),
+    is_true("¿Presenta fatiga?"),
+    is_true("¿Presenta falta de concentracion?"),
+    is_true("¿Presenta malestar significativo?").
 enfermedad(agorafobia) :-
     is_true("¿Tiene miedo a usar el transporte publico?"),
     is_true("¿Tiene miedo a espacios abiertos"),
