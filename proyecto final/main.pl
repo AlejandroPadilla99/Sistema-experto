@@ -5,9 +5,8 @@
 inicio:-
     consult('trastornos'),
 	new(Menu, dialog('Sistema experto', size(1000,800))),
-	new(L,label(nombre,'Sistema de diagnostico')),
-	new(A,label(nombre,'Alejandro el mero mero')),
-	new(@texto,label(nombre,'responde un breve cuestionario para su diagnostico')),
+	new(L,label(nombre,'Menu principal del sistema experto')),
+	new(@texto,label(nombre,'Ingrese la opcion: ')),
 	new(@respl,label(nombre,'')),
 	new(Salir,button('SALIR',and(message(Menu, destroy),message(Menu,free)))),
 	new(@boton,button('realizar test',message(@prolog,consulta))),
@@ -15,21 +14,20 @@ inicio:-
 
 	send(Menu,append(L)),new(@btncarrera,button('Diagnostico?')),
 	send(Menu,display,L,point(125,20)),
-	send(Menu,display,A,point(80,360)),
 	send(Menu,display,@boton,point(100,150)),
 	send(Menu,display,@texto,point(20,100)),
 	send(Menu,display,Salir,point(20,400)),
 	send(Menu,display,@respl,point(20,130)),
 
 	send(Menu,open_centered).
-%   submenu
+
 %Menu de consulta
 consulta:-
-    enfermedad(X),
     new(Res,dialog('Sistema experto')),
-    new(Info,dialog('Usted sufre de')),
-    new(Ans,label(ans,X)),
-    send(Res,append(Info)),
+    new(L2,label(texto,'Usted sufre de:')),
+    enfermedad(X),
+    new(Ans,label(ans,X)), 
+    send(Res,append(L2)),
     send(Res,append(Ans)),
     send(Res,open_centered).
 
