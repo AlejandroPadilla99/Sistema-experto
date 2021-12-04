@@ -1,14 +1,20 @@
 :- use_module(library(pce)).
 :- use_module(library(pce_style_item)).
 
-%   menu principal
-inicio:-
+
+%   inicio
+inicio:- 
     consult('trastornos'),
+	new(Menu, dialog('Sistema experto', size(1000,800))),
+    menu.
+
+%   menu principal
+menu:-
 	new(Menu, dialog('Sistema experto', size(1000,800))),
 	new(L,label(nombre,'Menu principal del sistema experto')),
 	new(@texto,label(nombre,'Ingrese la opcion: ')),
 	new(@respl,label(nombre,'')),
-	new(Salir,button('SALIR',and(message(Menu, destroy),message(Menu,free)))),
+	new(Salir,button('SALIR',and(message(Menu, destroy), message(Menu,free)))),
 	new(@boton,button('realizar test',message(@prolog,consulta))),
 
 
@@ -22,6 +28,12 @@ inicio:-
 	send(Menu,open_centered).
 
 %Menu de consulta
+
+a:- 
+    retract(si),
+    retract(no),
+    write("se borro la cache").
+
 consulta:-
     new(Res,dialog('Sistema experto')),
     new(L2,label(texto,'Usted sufre de:')),
@@ -29,7 +41,9 @@ consulta:-
     new(Ans,label(ans,X)), 
     send(Res,append(L2)),
     send(Res,append(Ans)),
-    send(Res,open_centered).
+    send(Res,open_centered),
+    limpiar.
+
 
 
 %Ventana que muestra las correspondientes preguntas 
