@@ -1,7 +1,6 @@
 :- use_module(library(pce)).
 :- use_module(library(pce_style_item)).
 
-
 %   inicio
 inicio:- 
     consult('trastornos'),
@@ -12,27 +11,53 @@ inicio:-
 menu:-
 	new(Menu, dialog('Sistema experto', size(1000,800))),
 	new(L,label(nombre,'Menu principal del sistema experto')),
-	new(@texto,label(nombre,'Ingrese la opcion: ')),
-	new(@respl,label(nombre,'')),
+	new(Texto,label(nombre,'Ingrese la opcion: ')),
+	new(Respl,label(nombre,'')),
 	new(Salir,button('SALIR',and(message(Menu, destroy), message(Menu,free)))),
-	new(@boton,button('realizar test',message(@prolog,consulta))),
+	new(Boton,button('realizar test',message(@prolog,consulta))),
+    new(Botondos, button('Insertar enfermedad', message(@prolog, insertar_preguntas, prolog([])))),
 
-
-	send(Menu,append(L)),new(@btncarrera,button('Diagnostico?')),
+	send(Menu,append(L)),
 	send(Menu,display,L,point(125,20)),
-	send(Menu,display,@boton,point(100,150)),
-	send(Menu,display,@texto,point(20,100)),
+	send(Menu,display,Boton,point(100,150)),
+    send(Menu,display,Botondos,point(100,250)),
+	send(Menu,display,Texto,point(20,100)),
 	send(Menu,display,Salir,point(20,400)),
-	send(Menu,display,@respl,point(20,130)),
-
+	send(Menu,display,Respl,point(20,130)),
 	send(Menu,open_centered).
 
-%Menu de consulta
+insertar_preguntas(L) :-
+    new(D, dialog('Insertar enfermedad')),
+    new(T, text_item('Escriba una pregunta para identificar la enfermedad')),
+    new(B1, button('Agregar pregunta', message(@prolog, insertar_en_lista, D, T, prolog(L)))),
+    new(B2, button('Finalizar', message(@prolog, finalizar, D, prolog(L)))),
+    send(D, append(T)),
+    send(D, append(B1)),
+    send(D, append(B2)),
+    send(D, open).
 
-a:- 
-    retract(si),
-    retract(no),
-    write("se borro la cache").
+insertar_en_lista(D, T, L) :-
+    get(T, selection, Text),
+    Q = is_true(Text),
+    NL = [Q|L],
+    free(D),
+    insertar_preguntas(NL).
+
+finalizar(DO, L) :-
+    free(DO),
+    new(D, dialog('Insertar enfermedad')),
+    new(T, text_item('Escriba el nombre de la enfermedad')),
+    new(B, button('Anadir enfermedad', message(@prolog, agregar_enfermedad, D, T, prolog(L)))),
+    send(D, append(T)),
+    send(D, append(B)),
+    send(D, open).
+
+agregar_enfermedad(D, T, L) :-
+    get(T, selection, Text),
+    crate_a_rule(Text, L),
+    free(D).
+
+%Menu de consulta
 
 consulta:-
     new(Res,dialog('Sistema experto')),
@@ -43,8 +68,6 @@ consulta:-
     send(Res,append(Ans)),
     send(Res,open_centered),
     limpiar.
-
-
 
 %Ventana que muestra las correspondientes preguntas 
 :-dynamic si/1, no/1.
@@ -70,17 +93,15 @@ preguntar(Pregunta):-
         fail
     ).
 
-
 is_true(Q) :-
     (si(Q)->true;(no(Q)->fail; preguntar(Q))).
-
 
 limpiar :- retract(si(_)),fail.
 limpiar :- retract(no(_)),fail.
 limpiar.
 
 /* Ingresar una nueva regla */
- make_rule:-
+make_rule:-
     write("Ingresa en nombre de la enfermedad"),read(S),
     add_questions([],Lista),
     write(Lista).
@@ -98,7 +119,7 @@ add_questions(L,Lista):-
 
 
 %crea un nueva regla en la vase de dados y la inserta
- crate_a_rule(Name,Cond):- 
+crate_a_rule(Name,Cond):- 
     list_to_tuple(Cond,Body),
     assert(enfermedad(Name):-Body),
     save.
