@@ -1,4 +1,0 @@
-0- TODO
-1 - Crear un menu
-2 - Función que agregue nuevas enfermedades (módulo de aprendizaje)
-3 - Función que devuelva la enfermedad o un mensaje cuando no encuentre la enfermedad

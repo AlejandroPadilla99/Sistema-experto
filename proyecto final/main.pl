@@ -12,7 +12,6 @@ menu:-
 	new(Salir,button('SALIR',and(message(Menu, destroy), message(Menu,free)))),
 	new(Boton,button('realizar test',message(@prolog,consulta))),
     new(Botondos, button('Insertar enfermedad', message(@prolog, insertar_preguntas, prolog([])))),
-
 	send(Menu,append(L)),
 	send(Menu,append(Texto)),
 	send(Menu,append(Boton)),
@@ -35,9 +34,16 @@ insertar_preguntas(L) :-
 insertar_en_lista(D, T, L) :-
     get(T, selection, Text),
     Q = is_true(Text),
-    NL = [Q|L],
+    append(L, [Q], NL),
     free(D),
     insertar_preguntas(NL).
+
+finalizar(DO, []) :-
+    free(DO),
+    new(D, dialog('Insertar enfermedad')),
+    new(T, label(texto, 'Su enfermedad debe contener al menos una pregunta')),
+    send(D, append(T)),
+    send(D, open_centered).
 
 finalizar(DO, L) :-
     free(DO),
@@ -50,8 +56,26 @@ finalizar(DO, L) :-
 
 agregar_enfermedad(D, T, L) :-
     get(T, selection, Text),
-    crate_a_rule(Text, L),
-    free(D).
+    free(D),
+    (
+        Text == '',
+        enfermedad_no_agregada
+        ;
+        crate_a_rule(Text, L),
+        enfermedad_agregada
+    ).
+
+enfermedad_agregada :-
+    new(D, dialog('Insertar enfermedad')),
+    new(T, label(texto, 'Enfermedad agregada')),
+    send(D, append(T)),
+    send(D, open_centered).
+
+enfermedad_no_agregada :-
+    new(D, dialog('Insertar enfermedad')),
+    new(T, label(texto, 'Su enfermedad debe tener un nombre')),
+    send(D, append(T)),
+    send(D, open_centered).
 
 %Menu de consulta
 
@@ -62,7 +86,7 @@ consulta:-
         enfermedad(X),    
         new(Ans,label(ans,X))
         ;
-        new(Ans,label(ans,"Error"))
+        new(Ans,label(ans,"No hemos detectado ninguna enfermeda"))
     ),
     send(Res,append(L2)),
     send(Res,append(Ans)),
@@ -77,7 +101,6 @@ preguntar(Pregunta):-
     new(La,label(pre,Pregunta)),
     new(B1,button(si,and(message(Di,return,si)))),
     new(B2,button(no,and(message(Di,return,no)))),
-
     send(Di,append(L2)),
     send(Di,append(La)),
     send(Di,append(B1)),
