@@ -1,14 +1,10 @@
 :- use_module(library(pce)).
 :- use_module(library(pce_style_item)).
 
-%   inicio
-inicio:- 
-    consult('trastornos'),
-	new(Menu, dialog('Sistema experto', size(1000,800))),
-    menu.
 
 %   menu principal
 menu:-
+    consult('trastornos'),
 	new(Menu, dialog('Sistema experto', size(1000,800))),
 	new(L,label(nombre,'Menu principal del sistema experto')),
 	new(Texto,label(nombre,'Ingrese la opcion: ')),
@@ -18,14 +14,14 @@ menu:-
     new(Botondos, button('Insertar enfermedad', message(@prolog, insertar_preguntas, prolog([])))),
 
 	send(Menu,append(L)),
-	send(Menu,display,L,point(125,20)),
-	send(Menu,display,Boton,point(100,150)),
-    send(Menu,display,Botondos,point(100,250)),
-	send(Menu,display,Texto,point(20,100)),
-	send(Menu,display,Salir,point(20,400)),
-	send(Menu,display,Respl,point(20,130)),
+	send(Menu,append(Texto)),
+	send(Menu,append(Boton)),
+    send(Menu,append(Botondos)),
+	send(Menu,append(Salir)),
+	send(Menu,append(Respl)),
 	send(Menu,open_centered).
 
+% Agrega un nuevo conocimiento
 insertar_preguntas(L) :-
     new(D, dialog('Insertar enfermedad')),
     new(T, text_item('Escriba una pregunta para identificar la enfermedad')),
@@ -34,7 +30,7 @@ insertar_preguntas(L) :-
     send(D, append(T)),
     send(D, append(B1)),
     send(D, append(B2)),
-    send(D, open).
+    send(D, open_centered).
 
 insertar_en_lista(D, T, L) :-
     get(T, selection, Text),
@@ -50,7 +46,7 @@ finalizar(DO, L) :-
     new(B, button('Anadir enfermedad', message(@prolog, agregar_enfermedad, D, T, prolog(L)))),
     send(D, append(T)),
     send(D, append(B)),
-    send(D, open).
+    send(D, open_centered).
 
 agregar_enfermedad(D, T, L) :-
     get(T, selection, Text),
@@ -62,8 +58,12 @@ agregar_enfermedad(D, T, L) :-
 consulta:-
     new(Res,dialog('Sistema experto')),
     new(L2,label(texto,'Usted sufre de:')),
-    enfermedad(X),
-    new(Ans,label(ans,X)), 
+    (
+        enfermedad(X),    
+        new(Ans,label(ans,X))
+        ;
+        new(Ans,label(ans,"Error"))
+    ),
     send(Res,append(L2)),
     send(Res,append(Ans)),
     send(Res,open_centered),
@@ -96,26 +96,10 @@ preguntar(Pregunta):-
 is_true(Q) :-
     (si(Q)->true;(no(Q)->fail; preguntar(Q))).
 
+% Limpia memoria
 limpiar :- retract(si(_)),fail.
 limpiar :- retract(no(_)),fail.
 limpiar.
-
-/* Ingresar una nueva regla */
-make_rule:-
-    write("Ingresa en nombre de la enfermedad"),read(S),
-    add_questions([],Lista),
-    write(Lista).
-
-add_questions(L,Lista):-
-    write("Ingrese una pregunta entre comilla porvafor GRACIAS"),read(Q),
-    Question = is_true(Q),
-    Temp = [Question|L],
-    write("Ingrese 1 para ingresar otra pregunta"),read(Ans),
-    (Ans = 1 ->
-        add_questions(Temp,Lista)
-        ;
-        Lista = Temp
-    ).
 
 
 %crea un nueva regla en la vase de dados y la inserta

@@ -40,7 +40,8 @@ enfermedad(agorafobia) :-
     is_true("¿Le preocupa tener ataques otra vez?"),
     is_true("¿Necesita estar acompañado de alguien en publico?"),
     is_true("¿Evita estar en lugares publicos?").
-enfermedad(duelepansa) :-
-    is_true("Hola"),
-    is_true("mundo").
+enfermedad(malo) :-
+    is_true(malo),
+    is_true(mundo),
+    is_true(hola).
 
