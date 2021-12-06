@@ -5,8 +5,8 @@ enfermedad('Fobia especifica') :-
     is_true("¿Presenta llantos?"),
     is_true("¿Presenta rabietas?"),
     is_true("¿Presenta paralisis?"),
-    is_true("Presenta sucesos traumaticos?"),
-    is_true("Suele evitar situaciones?").
+    is_true("¿Presenta sucesos traumaticos?"),
+    is_true("¿Suele evitar situaciones?").
 enfermedad('Transtorno de ansiedad generalizada') :-
     is_true("¿Tiene ansiedad?"),
     is_true("¿Se encuentra preocupado?"),
@@ -33,7 +33,7 @@ enfermedad('Transtorno depresivo mayor') :-
     is_true("¿Presenta fatiga?"),
     is_true("¿Presenta falta de concentracion?"),
     is_true("¿Presenta malestar significativo?").
-enfermedad('agorafobia') :-
+enfermedad('Agorafobia') :-
     is_true("¿Tiene miedo a usar el transporte publico?"),
     is_true("¿Tiene miedo a espacios abiertos"),
     is_true("¿Ha tenido ataques de panico?"),
