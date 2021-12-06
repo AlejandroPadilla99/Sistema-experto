@@ -7,10 +7,10 @@ menu:-
     consult('trastornos'),
 	new(Menu, dialog('Sistema experto', size(1000,800))),
 	new(L,label(nombre,'Menu principal del sistema experto')),
-	new(Texto,label(nombre,'Ingrese la opcion: ')),
+	new(Texto,label(nombre,'Ingrese una opcion: ')),
 	new(Respl,label(nombre,'')),
 	new(Salir,button('SALIR',and(message(Menu, destroy), message(Menu,free)))),
-	new(Boton,button('realizar test',message(@prolog,consulta))),
+	new(Boton,button('Realizar test',message(@prolog,consulta))),
     new(Botondos, button('Insertar enfermedad', message(@prolog, insertar_preguntas, prolog([])))),
 	send(Menu,append(L)),
 	send(Menu,append(Texto)),
@@ -73,7 +73,7 @@ enfermedad_agregada :-
 
 enfermedad_no_agregada :-
     new(D, dialog('Insertar enfermedad')),
-    new(T, label(texto, 'Su enfermedad debe tener un nombre')),
+    new(T, label(texto, 'Su enfermedad debe de tener un nombre')),
     send(D, append(T)),
     send(D, open_centered).
 
@@ -86,14 +86,14 @@ consulta:-
         enfermedad(X),    
         new(Ans,label(ans,X))
         ;
-        new(Ans,label(ans,"No hemos detectado ninguna enfermeda"))
+        new(Ans,label(ans,"Sus sintomas no corresponden con ninguna de las enfermedades registradas."))
     ),
     send(Res,append(L2)),
     send(Res,append(Ans)),
     send(Res,open_centered),
     limpiar.
 
-%Ventana que muestra las correspondientes preguntas 
+%Ventana que muestra las preguntas correspondientes a cada trastorno
 :-dynamic si/1, no/1.
 preguntar(Pregunta):-
     new(Di,dialog('Diagnostico')),
@@ -125,7 +125,7 @@ limpiar :- retract(no(_)),fail.
 limpiar.
 
 
-%crea un nueva regla en la vase de dados y la inserta
+%crea una nueva regla en la base de datos y la inserta
 crate_a_rule(Name,Cond):- 
     list_to_tuple(Cond,Body),
     assert(enfermedad(Name):-Body),
@@ -143,7 +143,7 @@ list_to_tuple([X],X).
 list_to_tuple([H|T],(H,Rest_Tuple)) :-
     list_to_tuple(T,Rest_Tuple).
 
-%Guarada los cambios en la base de datos
+%Guarda los cambios en la base de datos
 save:-
     tell('trastornos.pl'),
     listing(enfermedad),
